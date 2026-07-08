@@ -1,17 +1,17 @@
 {
-  "name": "fable-advisor",
+  "name": "advisor-orchestrator",
   "metadata": {
-    "description": "Model-routing patterns for Claude Code: architect-as-orchestrator with Grok 4.5 and GPT-5.5 implementation lanes and a Fable 5 commitment-boundary advisor."
+    "description": "Relative-tier model routing for Claude Code: advise up for judgment, delegate down for volume — relative to the caller's own seat on a ranked model ladder."
   },
   "owner": {
-    "name": "Dan McAteer",
-    "url": "https://github.com/DannyMac180"
+    "name": "Bryant Clark",
+    "url": "https://github.com/bryantclark"
   },
   "plugins": [
     {
-      "name": "fable-advisor",
+      "name": "advisor-orchestrator",
       "source": "./",
-      "description": "Architect-as-orchestrator: your session runs Claude's most capable model, routing implementation to Grok 4.5 (grok CLI) and GPT-5.5 (codex) lanes — with a commitment-boundary advisor."
+      "description": "One orchestration skill teaches any-model sessions to advise UP (Fable/Opus/GPT-5.5) for judgment and delegate DOWN (codex GPT-5.5, grok Grok 4.5, Claude subagents) for determined volume, relative to their own tier."
     }
   ]
 }
