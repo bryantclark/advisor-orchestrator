@@ -11,15 +11,15 @@ public benchmarks). Edit here — the orchestration doctrine and `~/.claude/CLAU
 | model | family | intel | taste | value | reason@ | access |
 |---|---|---|---|---|---|---|
 | **fable-5** | Anthropic | 9 | 9 | 2 | low | `model: fable` |
-| **gpt-5.5** | OpenAI | 7 | 5 | 8 | low | Codex CLI — `codex exec` / `codex exec -s read-only` |
+| **gpt-5.6** | OpenAI | 7 | 5 | 8 | low | Codex CLI — `codex exec` / `codex exec -s read-only` |
 | **opus-4.8** | Anthropic | 6 | 8 | 5 | low | `model: opus` |
 | **grok-4.5** | xAI | 6 | 6 | 9 | **high** | Grok CLI — `grok … -m grok-4.5 --effort high` |
 | **sonnet-5** | Anthropic | 4 | 7 | 5 | low | `model: sonnet` |
 | **haiku-4.5** | Anthropic | 2 | 4 | 8 | low | `model: haiku` — **avoid** |
 
-- **intelligence:** fable > gpt-5.5 > opus ≈ grok > sonnet > haiku
-- **taste:** fable > opus > sonnet > grok > gpt-5.5 > haiku
-- **value:** grok ≈ gpt-5.5 > haiku > opus ≈ sonnet > fable
+- **intelligence:** fable > gpt-5.6 > opus ≈ grok > sonnet > haiku
+- **taste:** fable > opus > sonnet > grok > gpt-5.6 > haiku
+- **value:** grok ≈ gpt-5.6 > haiku > opus ≈ sonnet > fable
 
 ## Reasoning effort
 
@@ -30,9 +30,9 @@ wasted tokens/latency); escalating for judgment → **high**. Per-model `reason@
 
 ## Notes
 
-- **gpt-5.5 + grok-4.5** — strong intelligence *and* the cheapest lanes (generous CLI limits): the default
+- **gpt-5.6 + grok-4.5** — strong intelligence *and* the cheapest lanes (generous CLI limits): the default
   delegation targets. Both sit below the taste-7 bar, so never on user-facing surfaces — that's Opus/Fable.
-  gpt-5.5 also doubles as a cross-vendor advisor (run high, read-only).
+  gpt-5.6 also doubles as a cross-vendor advisor (run high, read-only).
 - **grok's taste (6) and reason@ (high)** are the operator's estimate, not benchmarks — recalibrate with use.
 - **Claude model pins silently fall back** to the session model if that tier isn't on your plan; the codex
   and grok lanes fail loudly instead. If routed results feel flat, check your plan.

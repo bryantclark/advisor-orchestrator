@@ -16,7 +16,7 @@ Every routing decision reads from one ranked table ([`skills/orchestration/refer
 | model | family | intelligence | taste | value (cheapness to you) | reason@ |
 |---|---|---|---|---|---|
 | **fable-5** | Anthropic | 9 | 9 | 2 | low |
-| **gpt-5.5** | OpenAI | 7 | 5 | 8 | low |
+| **gpt-5.6** | OpenAI | 7 | 5 | 8 | low |
 | **opus-4.8** | Anthropic | 6 | 8 | 5 | low |
 | **grok-4.5** | xAI | 6 | 6 | 9 | **high** |
 | **sonnet-5** | Anthropic | 4 | 7 | 5 | low |
@@ -24,7 +24,7 @@ Every routing decision reads from one ranked table ([`skills/orchestration/refer
 
 The table is the tuning surface — **edit it** when your plans, bills, or judgment of a model change, and the doctrine follows. (`intelligence` = how hard a problem you'd hand it unsupervised; `taste` = UI/UX, code quality, API design, copy; `value` = how cheap it is *to you* in practice, generous plan limits included; `reason@` = the reasoning effort where it's best value on delegated work.)
 
-The anomaly that drives the whole system: **GPT-5.5 and Grok 4.5 are strong-intelligence *and* the cheapest lanes you have** (generous CLI limits). That makes them the best *delegation* targets for bulk work — and GPT-5.5 doubles as an *escalation* target for cross-vendor correctness. Both sit below the taste-7 bar, so neither touches user-facing surfaces; that's what Opus and Fable are for.
+The anomaly that drives the whole system: **GPT-5.6 and Grok 4.5 are strong-intelligence *and* the cheapest lanes you have** (generous CLI limits). That makes them the best *delegation* targets for bulk work — and GPT-5.6 doubles as an *escalation* target for cross-vendor correctness. Both sit below the taste-7 bar, so neither touches user-facing surfaces; that's what Opus and Fable are for.
 
 **Reasoning is a second knob.** Effort tracks direction: delegated volume runs **low** (you verify anyway — extra reasoning is wasted tokens), escalation runs **high** (you're buying judgment). The one per-model override is **Grok 4.5, which runs high even for volume** — it's genuinely better with more thinking, where most lanes aren't worth the extra cost.
 
@@ -32,7 +32,7 @@ The anomaly that drives the whole system: **GPT-5.5 and Grok 4.5 are strong-inte
 
 - **One skill — `orchestration`.** The whole doctrine: find your seat, the two directions, the per-seat playbook, the five-part spec contract, cost discipline, and verification. It also carries the advisor prompt template, so escalating to a Claude model needs no extra file — you just spawn a subagent with `model: fable`/`opus`.
 - **Two thin CLI agents.** The only lanes that need packaging, because they wrap real Bash:
-  - [`agents/codex.md`](agents/codex.md) — **GPT-5.5** via the OpenAI Codex CLI, dual-mode: `IMPLEMENT` (`codex exec`, workspace-write) for the default cheap volume lane, and `ADVISE` (`codex exec -s read-only`) for a cross-vendor second opinion.
+  - [`agents/codex.md`](agents/codex.md) — **GPT-5.6** via the OpenAI Codex CLI, dual-mode: `IMPLEMENT` (`codex exec`, workspace-write) for the default cheap volume lane, and `ADVISE` (`codex exec -s read-only`) for a cross-vendor second opinion.
   - [`agents/grok.md`](agents/grok.md) — **Grok 4.5** via the xAI Grok CLI, the equally-cheap other-family implementation lane. Race it against codex on high-stakes specs.
 
 Claude-family targets (fable/opus/sonnet/haiku) need no agent file — the Agent tool's `model` parameter reaches them directly.
@@ -73,7 +73,7 @@ cheapest adequate lane, and verify evidence before accepting any lane's report.
 
 - **Claude Code** recent enough for subagent model routing (CLI, desktop, VS Code, web). Subagent model routing is **Claude Code only** — this does nothing on claude.ai chat.
 - **Claude lanes (fable/opus/sonnet/haiku):** a subscription that includes the tiers you route to. A pinned Claude model that isn't on your plan **silently falls back** to the session model — the pattern degrades quietly rather than erroring, so check your plan if results feel unremarkable.
-- **codex lane (GPT-5.5):** the [OpenAI Codex CLI](https://github.com/openai/codex) installed and authenticated (`npm i -g @openai/codex`, then `codex login`). Without it the agent reports `STATUS: unavailable` — never a silent Claude fallback.
+- **codex lane (GPT-5.6):** the [OpenAI Codex CLI](https://github.com/openai/codex) installed and authenticated (`npm i -g @openai/codex`, then `codex login`). Without it the agent reports `STATUS: unavailable` — never a silent Claude fallback.
 - **grok lane (Grok 4.5):** the [xAI Grok CLI](https://x.ai/cli) installed and authenticated (`grok login`). Same loud-failure contract.
 
 Model resolution order in Claude Code: `CLAUDE_CODE_SUBAGENT_MODEL` env → per-invocation `model` parameter → agent frontmatter → session model.
@@ -82,7 +82,7 @@ Model resolution order in Claude Code: `CLAUDE_CODE_SUBAGENT_MODEL` env → per-
 
 **Is this Anthropic's "advisor tool"?** No — that's a server-side API feature. This is plain Claude Code subagents plus a skill: readable, editable, no beta flags.
 
-**Why external Grok and GPT-5.5 lanes in a Claude plugin?** Vendor diversity, and cost. Models from one family share blind spots; an independent implementation from a different lineage catches what same-family review misses — and with Claude as the reviewer, every codex/grok diff gets cross-vendor review for free. They're also the cheapest lanes you have, which is why they carry the bulk volume.
+**Why external Grok and GPT-5.6 lanes in a Claude plugin?** Vendor diversity, and cost. Models from one family share blind spots; an independent implementation from a different lineage catches what same-family review misses — and with Claude as the reviewer, every codex/grok diff gets cross-vendor review for free. They're also the cheapest lanes you have, which is why they carry the bulk volume.
 
 **Why not just run everything on Fable?** You can — it's excellent, and the most expensive lane per token. Most of a session's tokens are implementation mechanics the cheap lanes handle at near-parity. Spend the premium where judgment lives.
 

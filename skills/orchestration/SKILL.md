@@ -14,12 +14,12 @@ Good orchestration is one idea: know where you sit, then move work in the two di
 
 These are orthogonal. Delegation is about **cost for work whose outcome the spec already fixes**.
 Escalation is about **judgment for work whose outcome is still open**. The same model can be both your
-delegate and your advisor depending on which kind of work it is — GPT-5.5 is the cheap bulk lane *and*
+delegate and your advisor depending on which kind of work it is — GPT-5.6 is the cheap bulk lane *and*
 a valid cross-vendor correctness check.
 
 There is one skill and two directions — not a separate skill or agent per model. To reach a **Claude**
 model you just spawn a subagent with its `model:` set. Only the two **external CLIs** are packaged as
-agents, because they wrap real Bash: the `codex` agent (GPT-5.5) and the `grok` agent (Grok 4.5).
+agents, because they wrap real Bash: the `codex` agent (GPT-5.6) and the `grok` agent (Grok 4.5).
 
 ## Step 1 — find your seat
 
@@ -40,7 +40,7 @@ taste ≥ 7 if the output is user-facing (keep user-facing surfaces off the sub-
 
 | Lane | Producer | How to invoke | Route here when |
 |---|---|---|---|
-| **codex** | GPT-5.5 (intel 7, value 8, taste 5), run **low** effort | `Agent(subagent_type: codex)` with the five-part spec | **Default** for determined volume. Cheap and smart at low effort. Not for taste-critical surfaces. |
+| **codex** | GPT-5.6 (intel 7, value 8, taste 5), run **low** effort | `Agent(subagent_type: codex)` with the five-part spec | **Default** for determined volume. Cheap and smart at low effort. Not for taste-critical surfaces. |
 | **grok** | Grok 4.5 (intel 6, value 9, taste 6), run **high** effort | `Agent(subagent_type: grok)` with the five-part spec | Cheapest lane, a *different* non-Anthropic family, and its sweet spot is high reasoning. Race it against codex, or use when Codex is down. |
 | **Claude-family** | Sonnet 5 (taste 7) / Haiku 4.5 | Spawn a general subagent with `model: sonnet`, low effort, and the spec | Determined work that's *lightly* user-facing (Sonnet's taste 7 clears the bar), Claude-family consistency, or both CLIs down. Never Haiku unless you have a specific reason. |
 
@@ -65,7 +65,7 @@ advisor to the **threatened axis**, not to "the smartest model available":
 |---|---|---|
 | **Hard reasoning / correctness** — near your intelligence ceiling, or stuck twice | Fable 5 (or Opus 4.8 if you don't need the ceiling) | Spawn a general subagent with `model: fable` (or `opus`), high effort + the advisor prompt below |
 | **Taste** — UI, copy, API shape, and your taste < 7 | Opus 4.8 (taste 8) or Fable 5 (taste 9) | Spawn a general subagent with `model: opus` (or `fable`), high effort + the advisor prompt below |
-| **Independent check** — a second opinion from outside your family | GPT-5.5, read-only | `Agent(subagent_type: codex)` with a decision-and-options prompt (it runs read-only, high effort, in advise mode) |
+| **Independent check** — a second opinion from outside your family | GPT-5.6, read-only | `Agent(subagent_type: codex)` with a decision-and-options prompt (it runs read-only, high effort, in advise mode) |
 
 Advisors always run at **high** reasoning effort — escalation is the moment you're paying for judgment, not saving on volume.
 
@@ -111,7 +111,7 @@ Your seat sets the defaults. Override any of them when the output bar demands it
 | **Sonnet** (I4 T7) | **Often.** Hard reasoning → codex-advise / Opus / Fable. Top-tier taste → Opus / Fable. You sit low on intelligence — most non-trivial judgment beats you. | **Only genuinely determined work**, and your best target is `codex` (cheaper *and* smarter than you). Keep the judgment; delegate the typing. |
 | **Haiku** (I2 T4) | **Constantly** — almost any judgment call exceeds you. If you're the session model, most decisions want a higher seat. | Rarely — little worth the overhead of delegating below you. |
 
-The counter-intuitive case: a **Sonnet** session delegating bulk work to **GPT-5.5** is delegating *down
+The counter-intuitive case: a **Sonnet** session delegating bulk work to **GPT-5.6** is delegating *down
 in cost* to a model that is *up in intelligence*. That's correct. Delegation follows cost for determined
 work; it is not a claim the target is dumber.
 
