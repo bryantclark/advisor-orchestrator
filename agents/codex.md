@@ -65,7 +65,7 @@ T=$(command -v gtimeout || command -v timeout || true)
 # EFFORT is "low" for IMPLEMENT (value — you verify anyway), "high" for ADVISE (buying judgment).
 #   Bump IMPLEMENT to high only when the caller flags the task correctness-critical.
 ${T:+$T 600} codex exec \
-  --model gpt-5.6 \
+  ${MODEL:+--model "$MODEL"} \
   -c model_reasoning_effort="$EFFORT" \
   --sandbox "$SANDBOX" \
   --skip-git-repo-check \
@@ -80,7 +80,7 @@ Flag discipline (non-negotiable):
 |---|---|
 | `--sandbox workspace-write` \| `read-only` | IMPLEMENT writes, scoped to the tree; ADVISE cannot touch a file. Never `danger-full-access`. |
 | `-c model_reasoning_effort=low` \| `high` | GPT-5.6 is best *value* at low effort, so IMPLEMENT runs low; ADVISE buys judgment, so runs high. Only crank IMPLEMENT to high when the caller says the task is correctness-critical. |
-| `--model gpt-5.6` | Top GPT tier, pinned — never rely on the CLI default. If the caller names a different codex model, use that; the slug is a documented default, not a constant. |
+| `${MODEL:+--model "$MODEL"}` | Omit `--model` by default so codex inherits the CLI's configured top tier (`~/.codex/config.toml` `model`), which uses the account-correct slug — `gpt-5.6-sol` on ChatGPT-app auth, `gpt-5.6` on an API key. Set `MODEL` only when the caller names a specific model. (A hard `--model gpt-5.6` pin is rejected on ChatGPT-auth accounts — that slug is API-key-only.) |
 | `--skip-git-repo-check` + `--cd "$(pwd)"` | Deterministic working root; works outside git repos. |
 | `- < "$SPEC"` | Prompt via stdin. No quoting hazards, no truncation. |
 | `${T:+$T 600}` | Ten-minute cap when a timeout binary exists (macOS needs `brew install coreutils`); uncapped otherwise. On timeout, report `STATUS: timeout` with whatever landed. |

@@ -33,3 +33,6 @@ correctness-critical (concurrency, money, migrations).
   doubles as a cross-vendor advisor (run high, read-only).
 - **Claude model pins silently fall back** to the session model if that tier isn't on your plan; the codex
   lane fails loudly instead. If routed results feel flat, check your plan.
+- **The codex model slug is account-specific.** ChatGPT-app auth exposes `gpt-5.6` as `gpt-5.6-sol`;
+  API-key auth uses the plain `gpt-5.6`. The codex lane omits `--model` and inherits `~/.codex/config.toml`'s
+  default, so it picks the right slug per machine — don't hard-pin the bare `gpt-5.6` (rejected on ChatGPT auth).
