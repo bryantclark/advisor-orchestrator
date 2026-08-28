@@ -1,6 +1,6 @@
 {
   "name": "advisor-orchestrator",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "Relative-tier model routing for Claude Code: an agent running any model advises UP to a smarter/higher-taste model for judgment and delegates DOWN to a cheaper lane for determined volume — all relative to its own seat on a ranked model ladder. One orchestration skill plus a thin codex (GPT-5.6) CLI lane.",
   "author": {
     "name": "Bryant Clark",

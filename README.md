@@ -13,17 +13,18 @@ The two are orthogonal. Delegation is about **cost for work the spec already fix
 
 Every routing decision reads from one ranked table ([`skills/orchestration/references/models.md`](skills/orchestration/references/models.md)). Three axes, 1–10, from the operator's seat — not list price or public benchmarks:
 
-| model         | family    | intelligence | taste | value (cheapness to you) | reason@ |
-| ------------- | --------- | ------------ | ----- | ------------------------ | ------- |
-| **fable-5**   | Anthropic | 9            | 9     | 2                        | low     |
-| **gpt-5.6**   | OpenAI    | 7            | 5     | 8                        | low     |
-| **opus-4.8**  | Anthropic | 6            | 8     | 5                        | low     |
-| **sonnet-5**  | Anthropic | 4            | 7     | 5                        | low     |
-| **haiku-4.5** | Anthropic | 2            | 4     | 8                        | low     |
+| model            | family    | intelligence | taste | value (cheapness to you) | reason@ |
+| ---------------- | --------- | ------------ | ----- | ------------------------ | ------- |
+| **fable-5**      | Anthropic | 9            | 9     | 2                        | low     |
+| **gpt-5.6-sol**  | OpenAI    | 7            | 5     | 8                        | low     |
+| **opus-4.8**     | Anthropic | 6            | 8     | 5                        | low     |
+| **sonnet-5**     | Anthropic | 4            | 7     | 5                        | low     |
+| **gpt-5.6-luna** | OpenAI    | 4            | 4     | 10                       | low     |
+| **haiku-4.5**    | Anthropic | 2            | 4     | 8                        | low     |
 
 The table is the tuning surface — **edit it** when your plans, bills, or judgment of a model change, and the doctrine follows. (`intelligence` = how hard a problem you'd hand it unsupervised; `taste` = UI/UX, code quality, API design, copy; `value` = how cheap it is _to you_ in practice, generous plan limits included; `reason@` = the reasoning effort where it's best value on delegated work.)
 
-The anomaly that drives the whole system: **GPT-5.6 is strong-intelligence _and_ one of the cheapest lanes you have** (generous CLI limits). That makes it the best _delegation_ target for bulk work — and it doubles as an _escalation_ target for cross-vendor correctness. It sits below the taste-7 bar, so it never touches user-facing surfaces; that's what Opus and Fable are for.
+The anomaly that drives the whole system: **GPT-5.6-sol is strong-intelligence _and_ one of the cheapest lanes you have** (generous CLI limits). That makes it the best _delegation_ target for bulk work — and it doubles as an _escalation_ target for cross-vendor correctness. Its sibling **luna** is cheaper still but dumber, a bottom-of-ladder lane for the most trivial rote work. Both sit below the taste-7 bar, so neither touches user-facing surfaces; that's what Opus and Fable are for.
 
 **Reasoning is a second knob.** Effort tracks direction: delegated volume runs **low** (you verify anyway — extra reasoning is wasted tokens), escalation runs **high** (you're buying judgment).
 

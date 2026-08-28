@@ -62,8 +62,10 @@ T=$(command -v gtimeout || command -v timeout || true)
 [ -z "$T" ] && echo "WARN: no timeout binary — codex runs uncapped (brew install coreutils to cap)"
 
 # SANDBOX is "workspace-write" for IMPLEMENT, "read-only" for ADVISE
-# EFFORT is "low" for IMPLEMENT (value — you verify anyway), "high" for ADVISE (buying judgment).
-#   Bump IMPLEMENT to high only when the caller flags the task correctness-critical.
+# MODEL picks the GPT lane: "gpt-5.6-sol" (default — smart + cheap) or "gpt-5.6-luna"
+#   (dumber but cheapest — only for the easiest rote work). Omit to inherit the CLI default.
+# EFFORT is "low"|"medium"|"high": low for IMPLEMENT (value — you verify anyway),
+#   high for ADVISE (buying judgment). Bump IMPLEMENT to high only when correctness-critical.
 ${T:+$T 600} codex exec \
   ${MODEL:+--model "$MODEL"} \
   -c model_reasoning_effort="$EFFORT" \
@@ -79,8 +81,8 @@ Flag discipline (non-negotiable):
 | Flag | Why |
 |---|---|
 | `--sandbox workspace-write` \| `read-only` | IMPLEMENT writes, scoped to the tree; ADVISE cannot touch a file. Never `danger-full-access`. |
-| `-c model_reasoning_effort=low` \| `high` | GPT-5.6 is best *value* at low effort, so IMPLEMENT runs low; ADVISE buys judgment, so runs high. Only crank IMPLEMENT to high when the caller says the task is correctness-critical. |
-| `${MODEL:+--model "$MODEL"}` | Omit `--model` by default so codex inherits the CLI's configured top tier (`~/.codex/config.toml` `model`), which uses the account-correct slug — `gpt-5.6-sol` on ChatGPT-app auth, `gpt-5.6` on an API key. Set `MODEL` only when the caller names a specific model. (A hard `--model gpt-5.6` pin is rejected on ChatGPT-auth accounts — that slug is API-key-only.) |
+| `-c model_reasoning_effort=low` \| `medium` \| `high` | Best *value* at low, so IMPLEMENT runs low; ADVISE buys judgment, so runs high. Effort is independent of the model — crank IMPLEMENT to high only when the caller says the task is correctness-critical. |
+| `${MODEL:+--model "$MODEL"}` | Picks the GPT lane. `gpt-5.6-sol` — smart and cheap, the default for real work; `gpt-5.6-luna` — dumber but cheapest, only for the easiest rote/mechanical work the caller has flagged trivial. Omit `--model` to inherit `~/.codex/config.toml`'s account-correct default. Never pin a bare `--model gpt-5.6` — rejected on ChatGPT-app auth; use the `-sol`/`-luna` slugs. |
 | `--skip-git-repo-check` + `--cd "$(pwd)"` | Deterministic working root; works outside git repos. |
 | `- < "$SPEC"` | Prompt via stdin. No quoting hazards, no truncation. |
 | `${T:+$T 600}` | Ten-minute cap when a timeout binary exists (macOS needs `brew install coreutils`); uncapped otherwise. On timeout, report `STATUS: timeout` with whatever landed. |
