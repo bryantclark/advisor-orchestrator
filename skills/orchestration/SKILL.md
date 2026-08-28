@@ -40,8 +40,8 @@ taste ≥ 7 if the output is user-facing (keep user-facing surfaces off the sub-
 
 | Lane              | Producer                                                | How to invoke                                                           | Route here when                                                                                                                                                            |
 | ----------------- | ------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **codex**         | GPT-5.6-**sol** (intel 7, value 8, taste 5), run **low** effort; drop to GPT-5.6-**luna** (intel 4, value 10) for trivial rote work | `Agent(subagent_type: codex)` with the five-part spec; name the model + effort in the prompt (default `sol` low) | **Default** for determined volume. `sol` is cheap and smart; `luna` is cheaper still but dumber — only the easiest mechanical edits. Non-Anthropic family for a free cross-vendor diff. Not for taste-critical surfaces. |
-| **Claude-family** | Sonnet 5 (taste 7) / Haiku 4.5                          | Spawn a general subagent with `model: sonnet`, low effort, and the spec | Determined work that's _lightly_ user-facing (Sonnet's taste 7 clears the bar), Claude-family consistency, or the CLI down. Never Haiku unless you have a specific reason. |
+| **codex**         | GPT-5.6-**sol** (intel 7, value 8, taste 5), run **medium** effort; drop to GPT-5.6-**luna** (intel 4, value 10, run **high**) for trivial rote work | `Agent(subagent_type: codex)` with the five-part spec; name the model + effort in the prompt (default `sol` medium) | **Default** for determined volume. `sol` is cheap and smart; `luna` is cheaper still but dumber — only the easiest mechanical edits. Non-Anthropic family for a free cross-vendor diff. Not for taste-critical surfaces. |
+| **Claude-family** | Sonnet 5 (taste 7) / Haiku 4.5 — both **avoid**        | Spawn a general subagent with `model: sonnet`, low effort, and the spec | Only when you need Claude-family taste ≥ 7 on _lightly_ user-facing work, or the CLI is down. Sonnet's price-vs-performance no longer competes with sol; reach for it just for that taste-7 niche. Never Haiku unless you have a specific reason. |
 
 Deciding rule: how much does the outcome depend on judgment the spec can't capture? Little → the default
 codex lane; you verify anyway. A lot, and mistakes are costly → keep that piece yourself and escalate the
@@ -61,8 +61,8 @@ advisor to the **threatened axis**, not to "the smartest model available":
 
 | Threatened axis                                                                   | Advise up to                                        | How to invoke                                                                                                     |
 | --------------------------------------------------------------------------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **Hard reasoning / correctness** — near your intelligence ceiling, or stuck twice | Fable 5 (or Opus 4.8 if you don't need the ceiling) | Spawn a general subagent with `model: fable` (or `opus`), high effort + the advisor prompt below                  |
-| **Taste** — UI, copy, API shape, and your taste < 7                               | Opus 4.8 (taste 8) or Fable 5 (taste 9)             | Spawn a general subagent with `model: opus` (or `fable`), high effort + the advisor prompt below                  |
+| **Hard reasoning / correctness** — near your intelligence ceiling, or stuck twice | Fable 5 (or Opus 5 if you don't need the ceiling) | Spawn a general subagent with `model: fable` (or `opus`), high effort + the advisor prompt below                  |
+| **Taste** — UI, copy, API shape, and your taste < 7                               | Opus 5 (taste 8) or Fable 5 (taste 9)             | Spawn a general subagent with `model: opus` (or `fable`), high effort + the advisor prompt below                  |
 | **Independent check** — a second opinion from outside your family                 | GPT-5.6, read-only                                  | `Agent(subagent_type: codex)` with a decision-and-options prompt (it runs read-only, high effort, in advise mode) |
 
 Advisors always run at **high** reasoning effort — escalation is the moment you're paying for judgment, not saving on volume.
@@ -109,7 +109,7 @@ Your seat sets the defaults. Override any of them when the output bar demands it
 | **Sonnet** (I4 T7) | **Often.** Hard reasoning → codex-advise / Opus / Fable. Top-tier taste → Opus / Fable. You sit low on intelligence — most non-trivial judgment beats you. | **Only genuinely determined work**, and your best target is `codex` (cheaper _and_ smarter than you). Keep the judgment; delegate the typing. |
 | **Haiku** (I2 T4)  | **Constantly** — almost any judgment call exceeds you. If you're the session model, most decisions want a higher seat.                                     | Rarely — little worth the overhead of delegating below you.                                                                                   |
 
-The counter-intuitive case: a **Sonnet** session delegating bulk work to **GPT-5.6** is delegating _down
+The counter-intuitive case: a **Sonnet** session delegating bulk work to **GPT-5.6-sol** is delegating _down
 in cost_ to a model that is _up in intelligence_. That's correct. Delegation follows cost for determined
 work; it is not a claim the target is dumber.
 

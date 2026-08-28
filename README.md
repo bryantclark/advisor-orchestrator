@@ -16,10 +16,10 @@ Every routing decision reads from one ranked table ([`skills/orchestration/refer
 | model            | family    | intelligence | taste | value (cheapness to you) | reason@ |
 | ---------------- | --------- | ------------ | ----- | ------------------------ | ------- |
 | **fable-5**      | Anthropic | 9            | 9     | 2                        | low     |
-| **gpt-5.6-sol**  | OpenAI    | 7            | 5     | 8                        | low     |
-| **opus-4.8**     | Anthropic | 6            | 8     | 5                        | low     |
+| **gpt-5.6-sol**  | OpenAI    | 7            | 5     | 8                        | medium  |
+| **opus-5**       | Anthropic | 6            | 8     | 5                        | medium  |
 | **sonnet-5**     | Anthropic | 4            | 7     | 5                        | low     |
-| **gpt-5.6-luna** | OpenAI    | 4            | 4     | 10                       | low     |
+| **gpt-5.6-luna** | OpenAI    | 4            | 4     | 10                       | high    |
 | **haiku-4.5**    | Anthropic | 2            | 4     | 8                        | low     |
 
 The table is the tuning surface — **edit it** when your plans, bills, or judgment of a model change, and the doctrine follows. (`intelligence` = how hard a problem you'd hand it unsupervised; `taste` = UI/UX, code quality, API design, copy; `value` = how cheap it is _to you_ in practice, generous plan limits included; `reason@` = the reasoning effort where it's best value on delegated work.)
